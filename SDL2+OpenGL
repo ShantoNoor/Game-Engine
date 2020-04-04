@@ -1,0 +1,82 @@
+#DEBUG
+debug_compile:
+	cd obj && del *.o && g++ -Wall -g -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+debug_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-d.exe" "obj\*.o" -lmingw32 -lglew32 -lOpenGL32 -lglu32 -lSDL2main -lSDL2
+debug_build:
+	mingw32-make -f SDL2+OpenGL debug_compile && mingw32-make -f SDL2+OpenGL debug_link
+debug_run:
+	cls && title main-d.exe && bin\main-d.exe
+debug_build_and_run:
+	mingw32-make -f SDL2+OpenGL debug_build && mingw32-make -f SDL2+OpenGL debug_run
+
+#STATIC_DEBUG
+static_debug_compile:
+	cd obj && del *.o && g++ -Wall -DGLEW_STATIC -g -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+static_debug_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-d.exe" "obj\*.o" -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2
+
+
+#RELEASE
+release_compile:
+	cd obj && del *.o && g++ -Wall -O3 -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+release_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-r.exe" "obj\*.o" -s -lmingw32 -lglew32 -lOpenGL32 -lglu32 -lSDL2main -lSDL2 -mwindows
+release_build:
+	mingw32-make -f SDL2+OpenGL release_compile && mingw32-make -f SDL2+OpenGL release_link
+release_run:
+	cls && title main-r.exe && bin\main-r.exe
+release_build_and_run:
+	mingw32-make -f SDL2+OpenGL release_build && mingw32-make -f SDL2+OpenGL release_run
+
+#STATIC_RELEASE
+static_release_compile:
+	cd obj && del *.o && g++ -Wall -DGLEW_STATIC -O3 -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+static_release_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-r.exe" "obj\*.o" -s -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2 -mwindows
+
+
+dc:
+	mingw32-make -f SDL2+OpenGL debug_compile
+dl:
+	mingw32-make -f SDL2+OpenGL debug_link
+db:
+	mingw32-make -f SDL2+OpenGL debug_build
+dr:
+	mingw32-make -f SDL2+OpenGL debug_run
+dbr:
+	mingw32-make -f SDL2+OpenGL debug_build_and_run
+
+sdc:
+	mingw32-make -f SDL2+OpenGL static_debug_compile
+sdl:
+	mingw32-make -f SDL2+OpenGL static_debug_link
+sdb:
+	mingw32-make -f SDL2+OpenGL sdc && mingw32-make -f SDL2+OpenGL sdl
+sdbr:
+	mingw32-make -f SDL2+OpenGL sdb && mingw32-make -f SDL2+OpenGL dr
+
+rc:
+	mingw32-make -f SDL2+OpenGL release_compile
+rl:
+	mingw32-make -f SDL2+OpenGL release_link
+rb:
+	mingw32-make -f SDL2+OpenGL release_build
+rr:
+	mingw32-make -f SDL2+OpenGL release_run
+rbr:
+	mingw32-make -f SDL2+OpenGL release_build_and_run
+
+src:
+	mingw32-make -f SDL2+OpenGL static_release_compile
+srl:
+	mingw32-make -f SDL2+OpenGL static_release_link
+srb:
+	mingw32-make -f SDL2+OpenGL src && mingw32-make -f SDL2+OpenGL srl
+srbr:
+	mingw32-make -f SDL2+OpenGL srb && mingw32-make -f SDL2+OpenGL rr
+
+create_folder:
+	mkdir .vscode bin obj src
+cf:
+	mingw32-make -f SDL2+OpenGL create_folder
