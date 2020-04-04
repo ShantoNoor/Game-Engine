@@ -14,7 +14,9 @@ debug_build_and_run:
 static_debug_compile:
 	cd obj && del *.o && g++ -Wall -DGLEW_STATIC -g -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
 static_debug_link:
-	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-d.exe" "obj\*.o" -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-d-s.exe" "obj\*.o" -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2
+static_debug_run:
+	cls && title main-d-s.exe && bin\main-d-s.exe
 
 
 #RELEASE
@@ -33,7 +35,9 @@ release_build_and_run:
 static_release_compile:
 	cd obj && del *.o && g++ -Wall -DGLEW_STATIC -O3 -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
 static_release_link:
-	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-r.exe" "obj\*.o" -s -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2 -mwindows
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-r-s.exe" "obj\*.o" -s -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2 -mwindows
+static_release_run:
+	cls && title main-r-s.exe && bin\main-r-s.exe
 
 
 dc:
@@ -53,8 +57,10 @@ sdl:
 	mingw32-make -f SDL2+OpenGL static_debug_link
 sdb:
 	mingw32-make -f SDL2+OpenGL sdc && mingw32-make -f SDL2+OpenGL sdl
+sdr:
+	mingw32-make -f SDL2+OpenGL static_debug_run
 sdbr:
-	mingw32-make -f SDL2+OpenGL sdb && mingw32-make -f SDL2+OpenGL dr
+	mingw32-make -f SDL2+OpenGL sdb && mingw32-make -f SDL2+OpenGL sdr
 
 rc:
 	mingw32-make -f SDL2+OpenGL release_compile
@@ -73,8 +79,10 @@ srl:
 	mingw32-make -f SDL2+OpenGL static_release_link
 srb:
 	mingw32-make -f SDL2+OpenGL src && mingw32-make -f SDL2+OpenGL srl
+srr:
+	mingw32-make -f SDL2+OpenGL static_release_run
 srbr:
-	mingw32-make -f SDL2+OpenGL srb && mingw32-make -f SDL2+OpenGL rr
+	mingw32-make -f SDL2+OpenGL srb && mingw32-make -f SDL2+OpenGL srr
 
 
 create_all_folders:
