@@ -76,7 +76,12 @@ srb:
 srbr:
 	mingw32-make -f SDL2+OpenGL srb && mingw32-make -f SDL2+OpenGL rr
 
-create_folder:
+create_all_folders:
 	mkdir .vscode bin obj src
-cf:
-	mingw32-make -f SDL2+OpenGL create_folder
+caf:
+	mingw32-make -f SDL2+OpenGL create_all_folders
+
+create_obj_folder:
+	mkdir obj
+cof:
+	mingw32-make -f SDL2+OpenGL create_obj_folder
