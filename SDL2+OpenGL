@@ -76,6 +76,7 @@ srb:
 srbr:
 	mingw32-make -f SDL2+OpenGL srb && mingw32-make -f SDL2+OpenGL rr
 
+
 create_all_folders:
 	mkdir .vscode bin obj src
 caf:
@@ -85,3 +86,50 @@ create_obj_folder:
 	mkdir obj
 cof:
 	mingw32-make -f SDL2+OpenGL create_obj_folder
+
+create_bin_folder:
+	mkdir bin
+cbf:
+	mingw32-make -f SDL2+OpenGL create_bin_folder
+
+create_src_folder:
+	mkdir src
+csf:
+	mingw32-make -f SDL2+OpenGL create_src_folder
+
+create_vscode_folder:
+	mkdir .vscode
+cvf:
+	mingw32-make -f SDL2+OpenGL create_vscode_folder
+
+create_three_folder:
+	mkdir src bin obj
+c3f:
+	mingw32-make -f SDL2+OpenGL create_three_folder
+
+
+copy_dlls:
+	mingw32-make -f SDL2+OpenGL copy_sdl_dll && mingw32-make -f SDL2+OpenGL copy_glew_dll
+cadll:
+	mingw32-make -f SDL2+OpenGL copy_dlls
+
+copy_sdl_dll:
+	copy "C:\dev\SDL2\i686-w64-mingw32\bin\SDL2.dll" "bin\"
+csdll:
+	mingw32-make -f SDL2+OpenGL copy_sdl_dll
+
+copy_glew_dll:
+	copy "C:\dev\GLEW\bin\Release\Win32\glew32.dll" "bin\"
+cgdll:
+	mingw32-make -f SDL2+OpenGL copy_glew_dll
+
+
+setup_1:
+	mingw32-make -f SDL2+OpenGL caf && mingw32-make -f SDL2+OpenGL cadll
+s1:
+	mingw32-make -f SDL2+OpenGL setup_1
+
+setup_2:
+	mingw32-make -f SDL2+OpenGL c3f && mingw32-make -f SDL2+OpenGL cadll
+s2:
+	mingw32-make -f SDL2+OpenGL setup_2
