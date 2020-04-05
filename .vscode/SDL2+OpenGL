@@ -1,0 +1,143 @@
+#DEBUG
+debug_compile:
+	cd obj && del *.o && g++ -Wall -g -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+debug_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-d.exe" "obj\*.o" -lmingw32 -lglew32 -lOpenGL32 -lglu32 -lSDL2main -lSDL2
+debug_build:
+	mingw32-make -f SDL2+OpenGL debug_compile && mingw32-make -f SDL2+OpenGL debug_link
+debug_run:
+	cls && title main-d.exe && bin\main-d.exe
+debug_build_and_run:
+	mingw32-make -f SDL2+OpenGL debug_build && mingw32-make -f SDL2+OpenGL debug_run
+
+#STATIC_DEBUG
+static_debug_compile:
+	cd obj && del *.o && g++ -Wall -DGLEW_STATIC -g -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+static_debug_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-d-s.exe" "obj\*.o" -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2
+static_debug_run:
+	cls && title main-d-s.exe && bin\main-d-s.exe
+
+
+#RELEASE
+release_compile:
+	cd obj && del *.o && g++ -Wall -O3 -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+release_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-r.exe" "obj\*.o" -s -lmingw32 -lglew32 -lOpenGL32 -lglu32 -lSDL2main -lSDL2 -mwindows
+release_build:
+	mingw32-make -f SDL2+OpenGL release_compile && mingw32-make -f SDL2+OpenGL release_link
+release_run:
+	cls && title main-r.exe && bin\main-r.exe
+release_build_and_run:
+	mingw32-make -f SDL2+OpenGL release_build && mingw32-make -f SDL2+OpenGL release_run
+
+#STATIC_RELEASE
+static_release_compile:
+	cd obj && del *.o && g++ -Wall -DGLEW_STATIC -O3 -IC:\dev\SDL2\i686-w64-mingw32\include -IC:\dev\GLEW\include -c ..\src\*.cpp
+static_release_link:
+	g++ -LC:\dev\SDL2\i686-w64-mingw32\lib -LC:\dev\GLEW\lib\Release\Win32 -o "bin\main-r-s.exe" "obj\*.o" -s -lmingw32 -lglew32s -lOpenGL32 -lglu32 -lSDL2main -lSDL2 -mwindows
+static_release_run:
+	cls && title main-r-s.exe && bin\main-r-s.exe
+
+
+dc:
+	mingw32-make -f SDL2+OpenGL debug_compile
+dl:
+	mingw32-make -f SDL2+OpenGL debug_link
+db:
+	mingw32-make -f SDL2+OpenGL debug_build
+dr:
+	mingw32-make -f SDL2+OpenGL debug_run
+dbr:
+	mingw32-make -f SDL2+OpenGL debug_build_and_run
+
+sdc:
+	mingw32-make -f SDL2+OpenGL static_debug_compile
+sdl:
+	mingw32-make -f SDL2+OpenGL static_debug_link
+sdb:
+	mingw32-make -f SDL2+OpenGL sdc && mingw32-make -f SDL2+OpenGL sdl
+sdr:
+	mingw32-make -f SDL2+OpenGL static_debug_run
+sdbr:
+	mingw32-make -f SDL2+OpenGL sdb && mingw32-make -f SDL2+OpenGL sdr
+
+rc:
+	mingw32-make -f SDL2+OpenGL release_compile
+rl:
+	mingw32-make -f SDL2+OpenGL release_link
+rb:
+	mingw32-make -f SDL2+OpenGL release_build
+rr:
+	mingw32-make -f SDL2+OpenGL release_run
+rbr:
+	mingw32-make -f SDL2+OpenGL release_build_and_run
+
+src:
+	mingw32-make -f SDL2+OpenGL static_release_compile
+srl:
+	mingw32-make -f SDL2+OpenGL static_release_link
+srb:
+	mingw32-make -f SDL2+OpenGL src && mingw32-make -f SDL2+OpenGL srl
+srr:
+	mingw32-make -f SDL2+OpenGL static_release_run
+srbr:
+	mingw32-make -f SDL2+OpenGL srb && mingw32-make -f SDL2+OpenGL srr
+
+
+create_all_folders:
+	mkdir .vscode bin obj src
+caf:
+	mingw32-make -f SDL2+OpenGL create_all_folders
+
+create_obj_folder:
+	mkdir obj
+cof:
+	mingw32-make -f SDL2+OpenGL create_obj_folder
+
+create_bin_folder:
+	mkdir bin
+cbf:
+	mingw32-make -f SDL2+OpenGL create_bin_folder
+
+create_src_folder:
+	mkdir src
+csf:
+	mingw32-make -f SDL2+OpenGL create_src_folder
+
+create_vscode_folder:
+	mkdir .vscode
+cvf:
+	mingw32-make -f SDL2+OpenGL create_vscode_folder
+
+create_three_folder:
+	mkdir src bin obj
+c3f:
+	mingw32-make -f SDL2+OpenGL create_three_folder
+
+
+copy_dlls:
+	mingw32-make -f SDL2+OpenGL copy_sdl_dll && mingw32-make -f SDL2+OpenGL copy_glew_dll
+cadll:
+	mingw32-make -f SDL2+OpenGL copy_dlls
+
+copy_sdl_dll:
+	copy "C:\dev\SDL2\i686-w64-mingw32\bin\SDL2.dll" "bin\"
+csdll:
+	mingw32-make -f SDL2+OpenGL copy_sdl_dll
+
+copy_glew_dll:
+	copy "C:\dev\GLEW\bin\Release\Win32\glew32.dll" "bin\"
+cgdll:
+	mingw32-make -f SDL2+OpenGL copy_glew_dll
+
+
+setup_1:
+	mingw32-make -f SDL2+OpenGL caf && mingw32-make -f SDL2+OpenGL cadll
+s1:
+	mingw32-make -f SDL2+OpenGL setup_1
+
+setup_2:
+	mingw32-make -f SDL2+OpenGL c3f && mingw32-make -f SDL2+OpenGL cadll
+s2:
+	mingw32-make -f SDL2+OpenGL setup_2
