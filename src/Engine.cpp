@@ -28,6 +28,9 @@ Engine::~Engine()
 void Engine::run()
 {
     init();
+
+    _sprite.init(-0.5f, 0.5f, 1.0f, 1.0f);
+
     loop();
 }
 
@@ -93,13 +96,7 @@ void Engine::draw()
     glClearDepth(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glEnableClientState(GL_COLOR_ARRAY);
-    glBegin(GL_TRIANGLES);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f( 0.0f, 0.5f);
-    glVertex2f(-0.5f,-0.5f);
-    glVertex2f( 0.5f, -0.5f);
-    glEnd();
+    _sprite.draw();
 
     SDL_GL_SwapWindow(_pWindow);
 }
